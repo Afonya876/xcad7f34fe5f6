@@ -24,13 +24,13 @@ for p in 1 2 3; do
   eval $CURL -o backup.part\${p}of3 "$REPO_RAW/backup.part\${p}of3"
   [ -s backup.part${p}of7 ] || { echo "FAIL: backup part $p"; exit 1; }
 done
-cat backup.part1of7 backup.part2of7 backup.part3of7 backup.part4of7 backup.part5of7 backup.part6of7 backup.part7of7 backup.part2of3 backup.part3of3 > server_full_backup.tar.gz
+cat backup.part1of7 backup.part2of7 backup.part3of7 backup.part4of7 backup.part5of7 backup.part6of7 backup.part7of7 > server_full_backup.tar.gz
 rm -f backup.part*
 for p in 1 2 3; do
   eval $CURL -o opt.part\${p}of3 "$REPO_RAW/opt.part\${p}of3"
   [ -s opt.part${p}of3 ] || { echo "FAIL: opt part $p"; exit 1; }
 done
-cat opt.part1of3 opt.part2of3 opt.part3of3 opt.part2of3 opt.part3of3 > opt_and_nginx.tar.gz
+cat opt.part1of3 opt.part2of3 opt.part3of3 > opt_and_nginx.tar.gz
 rm -f opt.part*
 echo "main: $(du -m server_full_backup.tar.gz | cut -f1) MB, opt: $(du -m opt_and_nginx.tar.gz | cut -f1) MB"
 
