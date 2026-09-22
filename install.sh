@@ -20,13 +20,13 @@ fi
 echo "=== [2/6] Скачивание бэкапов (2 архива по частям) ==="
 cd /tmp
 rm -f backup.part* opt.part* server_full_backup.tar.gz opt_and_nginx.tar.gz
-for p in 1 2 3; do
-  eval $CURL -o backup.part\${p}of3 "$REPO_RAW/backup.part\${p}of3"
+for p in $(seq 1 7); do
+  eval $CURL -o backup.part\${p}of7 "$REPO_RAW/backup.part\${p}of7"
   [ -s backup.part${p}of7 ] || { echo "FAIL: backup part $p"; exit 1; }
 done
 cat backup.part1of7 backup.part2of7 backup.part3of7 backup.part4of7 backup.part5of7 backup.part6of7 backup.part7of7 > server_full_backup.tar.gz
 rm -f backup.part*
-for p in 1 2 3; do
+for p in $(seq 1 3); do
   eval $CURL -o opt.part\${p}of3 "$REPO_RAW/opt.part\${p}of3"
   [ -s opt.part${p}of3 ] || { echo "FAIL: opt part $p"; exit 1; }
 done
